@@ -46,6 +46,7 @@ final class LoadingManager: Loading {
 
 // MARK: - Functions
 extension LoadingManager {
+    /// Show loading view
     func show() {
         DispatchQueue.main.async {
             if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
@@ -58,6 +59,7 @@ extension LoadingManager {
         }
     }
     
+    /// Hide loading view
     func hide() {
         DispatchQueue.main.async {
             if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
