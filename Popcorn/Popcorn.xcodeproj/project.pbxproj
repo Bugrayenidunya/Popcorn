@@ -20,6 +20,9 @@
 		13E65DEF281832AA00270D19 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DEE281832AA00270D19 /* String+Extension.swift */; };
 		13E65DF2281865B600270D19 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DF1281865B600270D19 /* LoadingManager.swift */; };
 		13E65DF42818689300270D19 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DF32818689300270D19 /* UIView+Extension.swift */; };
+		13E65DF728186DF300270D19 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DF628186DF300270D19 /* UserDefaultsManager.swift */; };
+		13E65DFA28186F8400270D19 /* ObjectSavableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DF928186F8400270D19 /* ObjectSavableError.swift */; };
+		13E65DFC28186FF800270D19 /* UserDefautls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DFB28186FF800270D19 /* UserDefautls.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		13E65DEE281832AA00270D19 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		13E65DF1281865B600270D19 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		13E65DF32818689300270D19 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		13E65DF628186DF300270D19 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		13E65DF928186F8400270D19 /* ObjectSavableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSavableError.swift; sourceTree = "<group>"; };
+		13E65DFB28186FF800270D19 /* UserDefautls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefautls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,7 @@
 			children = (
 				13E65DF0281865AD00270D19 /* LoadingManager */,
 				133ED4492818288500E06837 /* NetworkManager */,
+				13E65DF528186DE400270D19 /* UserDefaultsManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -174,6 +181,7 @@
 			children = (
 				133ED45B281830F900E06837 /* API.swift */,
 				133ED4592818309D00E06837 /* Constant.swift */,
+				13E65DFB28186FF800270D19 /* UserDefautls.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -230,6 +238,23 @@
 				13E65DF1281865B600270D19 /* LoadingManager.swift */,
 			);
 			path = LoadingManager;
+			sourceTree = "<group>";
+		};
+		13E65DF528186DE400270D19 /* UserDefaultsManager */ = {
+			isa = PBXGroup;
+			children = (
+				13E65DF628186DF300270D19 /* UserDefaultsManager.swift */,
+				13E65DF828186F7200270D19 /* ObjectSavableError */,
+			);
+			path = UserDefaultsManager;
+			sourceTree = "<group>";
+		};
+		13E65DF828186F7200270D19 /* ObjectSavableError */ = {
+			isa = PBXGroup;
+			children = (
+				13E65DF928186F8400270D19 /* ObjectSavableError.swift */,
+			);
+			path = ObjectSavableError;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,12 +327,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13E65DFC28186FF800270D19 /* UserDefautls.swift in Sources */,
 				13E65DF42818689300270D19 /* UIView+Extension.swift in Sources */,
 				13E65DF2281865B600270D19 /* LoadingManager.swift in Sources */,
+				13E65DF728186DF300270D19 /* UserDefaultsManager.swift in Sources */,
 				133ED44B2818289300E06837 /* NetworkManager.swift in Sources */,
 				133ED4292818220B00E06837 /* AppDelegate.swift in Sources */,
 				133ED42B2818220B00E06837 /* SceneDelegate.swift in Sources */,
 				133ED45A2818309D00E06837 /* Constant.swift in Sources */,
+				13E65DFA28186F8400270D19 /* ObjectSavableError.swift in Sources */,
 				133ED45828182ED600E06837 /* RequestMethod.swift in Sources */,
 				133ED44E281829E700E06837 /* RequestModel.swift in Sources */,
 				13E65DEF281832AA00270D19 /* String+Extension.swift in Sources */,
