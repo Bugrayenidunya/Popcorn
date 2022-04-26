@@ -11,6 +11,13 @@
 		133ED42B2818220B00E06837 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED42A2818220B00E06837 /* SceneDelegate.swift */; };
 		133ED4322818220E00E06837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 133ED4312818220E00E06837 /* Assets.xcassets */; };
 		133ED4352818220E00E06837 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 133ED4332818220E00E06837 /* LaunchScreen.storyboard */; };
+		133ED44B2818289300E06837 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED44A2818289300E06837 /* NetworkManager.swift */; };
+		133ED44E281829E700E06837 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED44D281829E700E06837 /* RequestModel.swift */; };
+		133ED45528182A4100E06837 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED45428182A4100E06837 /* ApiError.swift */; };
+		133ED45828182ED600E06837 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED45728182ED600E06837 /* RequestMethod.swift */; };
+		133ED45A2818309D00E06837 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED4592818309D00E06837 /* Constant.swift */; };
+		133ED45C281830F900E06837 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133ED45B281830F900E06837 /* API.swift */; };
+		13E65DEF281832AA00270D19 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E65DEE281832AA00270D19 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +27,13 @@
 		133ED4312818220E00E06837 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		133ED4342818220E00E06837 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		133ED4362818220E00E06837 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		133ED44A2818289300E06837 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		133ED44D281829E700E06837 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
+		133ED45428182A4100E06837 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		133ED45728182ED600E06837 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		133ED4592818309D00E06837 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		133ED45B281830F900E06837 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		13E65DEE281832AA00270D19 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +115,7 @@
 		133ED440281825DC00E06837 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				133ED4492818288500E06837 /* NetworkManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -108,6 +123,8 @@
 		133ED441281825E000E06837 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				133ED44C281829DC00E06837 /* Request */,
+				133ED44F281829EA00E06837 /* Response */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +132,8 @@
 		133ED442281825ED00E06837 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				133ED45328182A3600E06837 /* ApiError */,
+				133ED45628182EB500E06837 /* RequestMethod */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -132,6 +151,7 @@
 		133ED4452818260900E06837 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				13E65DEE281832AA00270D19 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -146,6 +166,8 @@
 		133ED4472818261500E06837 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				133ED45B281830F900E06837 /* API.swift */,
+				133ED4592818309D00E06837 /* Constant.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -155,6 +177,45 @@
 			children = (
 			);
 			path = Reusables;
+			sourceTree = "<group>";
+		};
+		133ED4492818288500E06837 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				133ED44A2818289300E06837 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		133ED44C281829DC00E06837 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				133ED44D281829E700E06837 /* RequestModel.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		133ED44F281829EA00E06837 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		133ED45328182A3600E06837 /* ApiError */ = {
+			isa = PBXGroup;
+			children = (
+				133ED45428182A4100E06837 /* ApiError.swift */,
+			);
+			path = ApiError;
+			sourceTree = "<group>";
+		};
+		133ED45628182EB500E06837 /* RequestMethod */ = {
+			isa = PBXGroup;
+			children = (
+				133ED45728182ED600E06837 /* RequestMethod.swift */,
+			);
+			path = RequestMethod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,8 +288,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				133ED44B2818289300E06837 /* NetworkManager.swift in Sources */,
 				133ED4292818220B00E06837 /* AppDelegate.swift in Sources */,
 				133ED42B2818220B00E06837 /* SceneDelegate.swift in Sources */,
+				133ED45A2818309D00E06837 /* Constant.swift in Sources */,
+				133ED45828182ED600E06837 /* RequestMethod.swift in Sources */,
+				133ED44E281829E700E06837 /* RequestModel.swift in Sources */,
+				13E65DEF281832AA00270D19 /* String+Extension.swift in Sources */,
+				133ED45C281830F900E06837 /* API.swift in Sources */,
+				133ED45528182A4100E06837 /* ApiError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
