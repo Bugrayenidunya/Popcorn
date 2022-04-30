@@ -23,7 +23,7 @@ protocol HomeViewModelOutput: AnyObject {
     func home(_ viewModel: HomeViewModelInput, userListDidLoad list: [User])
     func home(_ viewModel: HomeViewModelInput, albumListDidLoad list: [Album])
     func home(_ viewModel: HomeViewModelInput, photoDidLoad photo: [Photo])
-    func home(_ viewModel: HomeViewModelInput, cellDidLoad cell: [HomeCollectionViewCellViewModel])
+    func home(_ viewModel: HomeViewModelInput, sectionDidLoad section: [Section])
 }
 
 // MARK: - HomeViewModel
@@ -170,7 +170,18 @@ private extension HomeViewModel {
             }
         }
         
-        output?.home(self, cellDidLoad: cells)
+        groupPhotosByUserId(cell: cells)
+    }
+    
+    func groupPhotosByUserId(cell: [HomeCollectionViewCellViewModel]) {
+        let groupedPhotoes = Dictionary(grouping: cell, by: { $0.userId })
+        var sections: [Section] = []
+        
+        groupedPhotoes.forEach { section, item in
+            sections.append(.init(title: "User: \(section)", photos: item))
+        }
+        
+        output?.home(self, sectionDidLoad: sections.sorted(by: { $0.hashValue < $1.hashValue }))
         self.photoList.removeAll()
     }
 }

@@ -15,7 +15,7 @@ final class HomeController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, HomeCollectionViewCellViewModel>
     
     // MARK: Properties
-    private var sections = Section.allSections
+    private var sections: [Section] = []
     private var viewModel: HomeViewModelInput
     private lazy var dataSource = generateDatasource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, HomeCollectionViewCellViewModel>()
@@ -67,9 +67,9 @@ final class HomeController: UIViewController {
 
 // MARK: - HomeViewModelOutput
 extension HomeController: HomeViewModelOutput {
-    func home(_ viewModel: HomeViewModelInput, cellDidLoad cell: [HomeCollectionViewCellViewModel]) {
+    func home(_ viewModel: HomeViewModelInput, sectionDidLoad section: [Section]) {
         DispatchQueue.main.async {
-            self.sections = [Section(title: "Deneme", photos: cell)]
+            self.sections = section
             self.applySnapshot(animatingDifferences: true)
         }
     }
@@ -154,10 +154,10 @@ private extension HomeController {
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            
-            // TODO: Implement section header
-            
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderReusableView.identifier, for: indexPath) as? SectionHeaderReusableView
+            
+            view?.titleLabel.text = section.title
+            
             return view
         }
     }
