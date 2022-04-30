@@ -39,7 +39,7 @@ final class HomeViewModel: HomeViewModelInput {
     private let albumAPI: AlbumFetchable
     private let photoAPI: PhotoFetchable
     
-    var output: HomeViewModelOutput?
+    weak var output: HomeViewModelOutput?
     
     // MARK: Init
     init(userAPI: UserFetchable,
@@ -162,7 +162,10 @@ private extension HomeViewModel {
                         userId: user.id ?? .zero,
                         albumId: album.id ?? .zero,
                         photoId: photo.id ?? .zero,
-                        imageUrlStr: photo.thumbnailUrl ?? ""
+                        imageUrlStr: photo.thumbnailUrl ?? .empty,
+                        name: user.name ?? .empty,
+                        username: user.username ?? .empty,
+                        phone: user.phone ?? .empty
                     )
                     
                     cells.append(cellViewModel)

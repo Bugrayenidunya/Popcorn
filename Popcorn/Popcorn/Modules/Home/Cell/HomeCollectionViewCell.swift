@@ -53,7 +53,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     func configure(with viewModel: HomeCollectionViewCellViewModel) {
         self.viewModel = viewModel
         imageView.downloaded(from: viewModel.imageUrlStr)
-        setupLikeButton(with: viewModel.isFavorited)
+        setupLikeButton(with: viewModel.isLiked)
     }
 }
 
@@ -62,7 +62,7 @@ private extension HomeCollectionViewCell {
     @objc
     func likeButtonPressed() {
         guard let viewModel = viewModel else { return }
-        setupLikeButton(with: !viewModel.isFavorited)
+        setupLikeButton(with: !viewModel.isLiked)
         delegate?.collectionView(self, likeButtonDidPressedWith: viewModel)
     }
     

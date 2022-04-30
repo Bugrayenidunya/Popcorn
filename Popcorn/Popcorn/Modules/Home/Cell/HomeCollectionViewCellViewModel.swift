@@ -13,8 +13,11 @@ struct HomeCollectionViewCellViewModel: UICollectionViewCellConfigurable, Codabl
     let albumId: Int
     let photoId: Int
     let imageUrlStr: String
+    let name: String
+    let username: String
+    let phone: String
     
-    var isFavorited: Bool {
+    var isLiked: Bool {
         do {
             let likedPhotos = try UserDefaultsManager.shared.getObject(
                 forKey: Constant.UserDefaults.isLiked,

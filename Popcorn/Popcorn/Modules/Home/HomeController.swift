@@ -91,15 +91,33 @@ extension HomeController: HomeViewModelOutput {
     }
 }
 
+// MARK: - DetailControllerModuleOutput
+extension HomeController: DetailControllerModuleOutput {
+    func photoDidLike(with viewModel: HomeCollectionViewCellViewModel) {
+        DispatchQueue.main.async {
+            var newSnapshow = self.dataSource.snapshot()
+            newSnapshow.reloadItems([viewModel])
+            self.dataSource.apply(newSnapshow)
+        }
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 extension HomeController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        let cellViewModel = section.photos[indexPath.row]
+        
+        let detailVC = DetailController(viewModel: .init(), cellViewModel: cellViewModel)
+        detailVC.moduleOutput = self
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 // MARK: - HomeCollectionViewCellViewDelegate
 extension HomeController: HomeCollectionViewCellViewDelegate {
     func collectionView(_ cell: HomeCollectionViewCell, likeButtonDidPressedWith viewModel: HomeCollectionViewCellViewModel) {
-        viewModel.isFavorited ?
+        viewModel.isLiked ?
         self.viewModel.disslikePhoto(with: viewModel) :
         self.viewModel.likePhoto(with: viewModel)
     }
