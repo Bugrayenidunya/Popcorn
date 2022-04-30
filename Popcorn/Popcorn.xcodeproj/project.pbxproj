@@ -338,9 +338,9 @@
 		13E65DFD281876CE00270D19 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				132A9550281BE56B0060CCA2 /* Cell */,
 				13E65DFE2818770900270D19 /* HomeController.swift */,
 				132A954E2819E9990060CCA2 /* HomeViewModel.swift */,
+				132A9550281BE56B0060CCA2 /* Cell */,
 			);
 			path = Home;
 			sourceTree = "<group>";
