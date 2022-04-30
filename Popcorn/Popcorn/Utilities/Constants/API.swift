@@ -9,9 +9,12 @@ import Foundation
 
 extension Constant {
     
-    /// Constant `ÀPI` variables
+    /// Constant `API` variables
     class API {
-        static let baseUrl = "jsonplaceholder.typicode.com"
+        static let baseUrl = "https://jsonplaceholder.typicode.com"
+        static let users = "/users"
+        static let albums = "/albums"
+        static let photos = "/photos"
     }
     
 }

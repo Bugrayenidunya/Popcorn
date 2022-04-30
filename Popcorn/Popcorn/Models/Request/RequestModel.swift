@@ -59,17 +59,18 @@ extension RequestModel {
     private func generateUrl(with queryItems: [URLQueryItem]) -> URL? {
         let endpoint = Constant.API.baseUrl.appending(path)
         var urlComponents = URLComponents(string: endpoint)
-        
         urlComponents?.queryItems = queryItems
         
-        return urlComponents?.url
+        guard let url = urlComponents?.url else { return nil }
+        
+        return url
     }
     
     private func generateQueryItems() -> [URLQueryItem] {
         var queryItems: [URLQueryItem] = []
         
         parameters.forEach { parameter in
-            guard let value = parameter.value as? String else { return }
+            let value = parameter.value as! String
             queryItems.append(.init(name: parameter.key, value: value))
         }
         
