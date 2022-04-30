@@ -15,6 +15,8 @@ protocol HomeViewModelInput {
     func retriveUserList()
     func retrieveAlbums(for user: User)
     func retrievePhotos(for album: Album)
+    func likePhoto(with viewModel: HomeCollectionViewCellViewModel)
+    func disslikePhoto(with viewModel: HomeCollectionViewCellViewModel)
 }
 
 protocol HomeViewModelOutput: AnyObject {
@@ -26,7 +28,6 @@ protocol HomeViewModelOutput: AnyObject {
 
 // MARK: - HomeViewModel
 final class HomeViewModel: HomeViewModelInput {
-    
     
     // MARK: Properties
     private var userList: [User] = []
@@ -107,10 +108,51 @@ final class HomeViewModel: HomeViewModelInput {
             }
         }
     }
+    
+    func likePhoto(with viewModel: HomeCollectionViewCellViewModel) {
+        do {
+            if !getLikedPhotos().isEmpty {
+                var likedPhotos = getLikedPhotos()
+                
+                if !likedPhotos.contains(where: { $0.photoId == viewModel.photoId }) {
+                    likedPhotos.append(viewModel)
+                }
+                
+                try UserDefaultsManager.shared.setObject(likedPhotos, forKey: Constant.UserDefaults.isLiked)
+            } else {
+                try UserDefaultsManager.shared.setObject([viewModel], forKey: Constant.UserDefaults.isLiked)
+            }
+            
+        } catch {
+        }
+    }
+    
+    func disslikePhoto(with viewModel: HomeCollectionViewCellViewModel) {
+        do {
+            var likedPhotos = getLikedPhotos()
+            likedPhotos.removeAll(where: { $0.photoId == viewModel.photoId })
+            
+            try UserDefaultsManager.shared.setObject(likedPhotos, forKey: Constant.UserDefaults.isLiked)
+        } catch {
+        }
+    }
 }
 
 // MARK: - Helpers
 private extension HomeViewModel {
+    func getLikedPhotos() -> [HomeCollectionViewCellViewModel] {
+        do {
+            let likedPhotos = try UserDefaultsManager.shared.getObject(
+                forKey: Constant.UserDefaults.isLiked,
+                castTo: [HomeCollectionViewCellViewModel].self
+            )
+            
+            return likedPhotos
+        } catch {
+            return []
+        }
+    }
+    
     func generateCellData() {
         userList.forEach { user in
             for album in albumList where album.id == user.id {

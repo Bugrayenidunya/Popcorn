@@ -49,6 +49,7 @@ final class HomeController: UIViewController {
         setupView()
         viewModel.viewDidLoad()
         applySnapshot(animatingDifferences: false)
+        setupSupplementryView()
     }
     
     init(viewModel: HomeViewModelInput) {
@@ -95,9 +96,19 @@ extension HomeController: UICollectionViewDelegate {
     
 }
 
+// MARK: - HomeCollectionViewCellViewDelegate
+extension HomeController: HomeCollectionViewCellViewDelegate {
+    func collectionView(_ cell: HomeCollectionViewCell, likeButtonDidPressedWith viewModel: HomeCollectionViewCellViewModel) {
+        viewModel.isFavorited ?
+        self.viewModel.disslikePhoto(with: viewModel) :
+        self.viewModel.likePhoto(with: viewModel)
+    }
+}
+
 // MARK: - Helpers
 private extension HomeController {
     func setupView() {
+        view.backgroundColor = .white
         view.addSubview(collectionView)
         
         collectionView.setConstarint(
@@ -129,11 +140,12 @@ private extension HomeController {
                     return .init(frame: .zero)
                 }
                 
+                cell.delegate = self
                 cell.configure(with: cellViewModel)
                 
                 return cell
             })
-
+        
         return dataSource
     }
     /// Setups `Section`

@@ -11,7 +11,7 @@ extension Constant {
 
     /// Constant `UserDefaults` variables
     class UserDefaults {
-        
+        static let isLiked = "isLiked"
     }
 
 }
