@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		131AB26A281D65C200227709 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131AB269281D65C200227709 /* Section.swift */; };
+		131AB26E281D66A000227709 /* SectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131AB26D281D66A000227709 /* SectionHeaderReusableView.swift */; };
 		132A954F2819E9990060CCA2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132A954E2819E9990060CCA2 /* HomeViewModel.swift */; };
 		132A9552281BE5850060CCA2 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132A9551281BE5850060CCA2 /* HomeCollectionViewCell.swift */; };
 		132A9554281C146A0060CCA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132A9553281C146A0060CCA2 /* User.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		131AB269281D65C200227709 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		131AB26D281D66A000227709 /* SectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		132A954E2819E9990060CCA2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		132A9551281BE5850060CCA2 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		132A9553281C146A0060CCA2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -89,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		131AB26C281D667F00227709 /* SectionHeaderReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				131AB26D281D66A000227709 /* SectionHeaderReusableView.swift */,
+			);
+			path = SectionHeaderReusableView;
+			sourceTree = "<group>";
+		};
 		132A9550281BE56B0060CCA2 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +227,7 @@
 				132A9559281C156D0060CCA2 /* Album.swift */,
 				132A9557281C151E0060CCA2 /* Company.swift */,
 				132A955B281C15F80060CCA2 /* Photo.swift */,
+				131AB269281D65C200227709 /* Section.swift */,
 				132A9553281C146A0060CCA2 /* User.swift */,
 				133ED44C281829DC00E06837 /* Request */,
 			);
@@ -271,6 +284,7 @@
 		133ED4482818262300E06837 /* Reusables */ = {
 			isa = PBXGroup;
 			children = (
+				131AB26C281D667F00227709 /* SectionHeaderReusableView */,
 			);
 			path = Reusables;
 			sourceTree = "<group>";
@@ -421,9 +435,11 @@
 				132A9566281C63520060CCA2 /* UIImageView+Extension.swift in Sources */,
 				132A954F2819E9990060CCA2 /* HomeViewModel.swift in Sources */,
 				132A9561281C183E0060CCA2 /* UserAPI.swift in Sources */,
+				131AB26E281D66A000227709 /* SectionHeaderReusableView.swift in Sources */,
 				13E65DF42818689300270D19 /* UIView+Extension.swift in Sources */,
 				132A9552281BE5850060CCA2 /* HomeCollectionViewCell.swift in Sources */,
 				13E65DF2281865B600270D19 /* LoadingManager.swift in Sources */,
+				131AB26A281D65C200227709 /* Section.swift in Sources */,
 				132A956B281C64A20060CCA2 /* AlbumRequestModel.swift in Sources */,
 				13E65DF728186DF300270D19 /* UserDefaultsManager.swift in Sources */,
 				132A955A281C156D0060CCA2 /* Album.swift in Sources */,

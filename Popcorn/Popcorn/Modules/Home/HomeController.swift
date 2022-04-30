@@ -7,17 +7,17 @@
 
 import UIKit
 
-// MARK: - Enums
-enum Section: Int, Hashable, CaseIterable {
-    case main
-}
-
 // MARK: - HomeController
 final class HomeController: UIViewController {
     
+    // MARK: Typealias
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, HomeCollectionViewCellViewModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, HomeCollectionViewCellViewModel>
+    
     // MARK: Properties
+    private var sections = Section.allSections
     private var viewModel: HomeViewModelInput
-    private var dataSource: UICollectionViewDiffableDataSource<Section, HomeCollectionViewCellViewModel>!
+    private lazy var dataSource = generateDatasource()
     private var snapshot = NSDiffableDataSourceSnapshot<Section, HomeCollectionViewCellViewModel>()
     
     private enum Constant {
@@ -34,15 +34,21 @@ final class HomeController: UIViewController {
         let compositionalLayout = generateCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
+        collectionView.register(
+            SectionHeaderReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionHeaderReusableView.identifier
+        )
         collectionView.delegate = self
         return collectionView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        
         setupView()
         viewModel.viewDidLoad()
+        applySnapshot(animatingDifferences: false)
     }
     
     init(viewModel: HomeViewModelInput) {
@@ -61,7 +67,10 @@ final class HomeController: UIViewController {
 // MARK: - HomeViewModelOutput
 extension HomeController: HomeViewModelOutput {
     func home(_ viewModel: HomeViewModelInput, cellDidLoad cell: [HomeCollectionViewCellViewModel]) {
-        // TODO: Implement
+        DispatchQueue.main.async {
+            self.sections = [Section(title: "Deneme", photos: cell)]
+            self.applySnapshot(animatingDifferences: true)
+        }
     }
     
     func home(_ viewModel: HomeViewModelInput, photoDidLoad photo: [Photo]) {
@@ -102,10 +111,48 @@ private extension HomeController {
             trailingConstraint: .zero
         )
     }
+    /// Applies new data to dataSource
+    func applySnapshot(animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        snapshot.appendSections(sections)
+        sections.forEach { section in
+            snapshot.appendItems(section.photos, toSection: section)
+        }
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+    /// Generates `UICollectionViewDiffableDataSource`
+    func generateDatasource() -> DataSource {
+        let dataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { (collectionView, indexPath, cellViewModel) -> UICollectionViewCell? in
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else {
+                    return .init(frame: .zero)
+                }
+                
+                cell.configure(with: cellViewModel)
+                
+                return cell
+            })
 
+        return dataSource
+    }
+    /// Setups `Section`
+    func setupSupplementryView() {
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            
+            // TODO: Implement section header
+            
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderReusableView.identifier, for: indexPath) as? SectionHeaderReusableView
+            return view
+        }
+    }
+    
     /// Generates `UICollectionViewCompositionalLayout` with given items, group, header and section
     func generateCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let (smallItem, mediumItem, largeItem) = generateLayoutItems()
+        let (smallItem, largeItem) = generateLayoutItems()
         
         // Inner Group
         let innerGroupDimension = NSCollectionLayoutSize(
@@ -113,12 +160,12 @@ private extension HomeController {
             heightDimension: .fractionalHeight(Constant.full)
         )
         
-        let innerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: innerGroupDimension, subitems: [smallItem, mediumItem])
+        let innerGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupDimension, subitems: [smallItem])
         
         // Outer Group
         let outerGroupDimension = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constant.quarter),
-            heightDimension: .fractionalHeight(Constant.full)
+            widthDimension: .fractionalWidth(Constant.full),
+            heightDimension: .fractionalWidth(Constant.half)
         )
         
         let outerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: outerGroupDimension, subitems: [largeItem, innerGroup, innerGroup])
@@ -126,32 +173,26 @@ private extension HomeController {
         return .init(section: generateSection(for: outerGroup))
     }
     /// Generates `NSCollectionLayoutItem` with given dimensions
-    func generateLayoutItems() -> (small: NSCollectionLayoutItem, medium: NSCollectionLayoutItem, large: NSCollectionLayoutItem) {
+    func generateLayoutItems() -> (small: NSCollectionLayoutItem, large: NSCollectionLayoutItem) {
         // Small Item
         let smallItemDimension = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constant.quarter),
-            heightDimension: .fractionalHeight(Constant.full)
+            widthDimension: .fractionalWidth(Constant.full),
+            heightDimension: .fractionalHeight(Constant.half)
         )
         
         let smallItem = NSCollectionLayoutItem(layoutSize: smallItemDimension)
+        smallItem.contentInsets = NSDirectionalEdgeInsets(top: Constant.sectionInset, leading: Constant.sectionInset, bottom: Constant.sectionInset, trailing: Constant.sectionInset)
         
-        // Medium Item
-        let mediumItemDimension = NSCollectionLayoutSize(
+        // Large Item
+        let largeItemDimension = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.half),
             heightDimension: .fractionalHeight(Constant.full)
         )
         
-        let mediumItem = NSCollectionLayoutItem(layoutSize: mediumItemDimension)
-        
-        // Large Item
-        let largeItemDimension = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constant.full),
-            heightDimension: .fractionalHeight(Constant.full)
-        )
-        
         let largeItem = NSCollectionLayoutItem(layoutSize: largeItemDimension)
+        largeItem.contentInsets = NSDirectionalEdgeInsets(top: Constant.sectionInset, leading: Constant.sectionInset, bottom: Constant.sectionInset, trailing: Constant.sectionInset)
         
-        return (smallItem, mediumItem, largeItem)
+        return (smallItem, largeItem)
     }
     /// Generates `NSCollectionLayoutBoundarySupplementaryItem` with given dimensions
     func generateHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
@@ -159,7 +200,7 @@ private extension HomeController {
             widthDimension: .fractionalWidth(Constant.full),
             heightDimension: .estimated(Constant.headerHeight)
         )
-        return .init(layoutSize: headerItemDimension, elementKind: Constant.headerKind,  alignment: .top)
+        return .init(layoutSize: headerItemDimension, elementKind: UICollectionView.elementKindSectionHeader,  alignment: .top)
     }
     /// Generates `NSCollectionLayoutSection` with given group
     func generateSection(for group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection {
@@ -173,6 +214,7 @@ private extension HomeController {
         )
         
         section.boundarySupplementaryItems = [generateHeader()]
+        section.orthogonalScrollingBehavior = .groupPaging
         
         return section
     }
